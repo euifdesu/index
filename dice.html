@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dados</title>
+	<style>
+	 body {
+        background-image: url(image/background.jpg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+      }
+		canvas {
+			display: block;
+			margin: auto;
+			background-image: url(image/d0.png);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="meuCanvas" width="400" height="650"></canvas>
+	<script>
+		var numero = 1;
+		var girando = false;
+		var canvas = document.getElementById("meuCanvas");
+		var contexto = canvas.getContext("2d");
+		
+		var som1 = new Audio('sound/d1.wav');
+		var som2 = new Audio('sound/d2.wav');
+		var som3 = new Audio('sound/d3.wav');
+		var som4 = new Audio('sound/d4.wav');
+		var som5 = new Audio('sound/d5.wav');
+		var som6 = new Audio('sound/d6.wav');
+
+		canvas.addEventListener("click", function() {
+  girando = !girando;
+  if (!girando) {
+ som1.currentTime = 0;
+ som2.currentTime = 0;
+ som3.currentTime = 0;
+ som4.currentTime = 0;
+ som5.currentTime = 0;
+ som6.currentTime = 0;
+ 
+ som1.pause();
+ som2.pause();
+ som3.pause();
+ som4.pause();
+ som5.pause();
+ som6.pause();
+ 
+    switch (numero) {
+      case 1:
+        som1.play();
+        break;
+      case 2:
+        som2.play();
+        break;
+      case 3:
+        som3.play();
+        break;
+      case 4:
+        som4.play();
+        break;
+      case 5:
+        som5.play();
+        break;
+      case 6:
+        som6.play();
+        break;
+    }
+  }
+});
+
+
+
+		function desenhar() {
+contexto.clearRect(0, 0, canvas.width, canvas.height);
+
+			if (girando) {
+				numero = Math.floor(Math.random() * 6) + 1;
+			}
+			switch(numero) {
+				case 1:
+					contexto.drawImage(document.getElementById("d1"), 0, 0, canvas.width, canvas.height);
+					break;
+				case 2:
+					contexto.drawImage(document.getElementById("d2"), 0, 0, canvas.width, canvas.height);
+					break;
+				case 3:
+					contexto.drawImage(document.getElementById("d3"), 0, 0, canvas.width, canvas.height);
+					break;
+				case 4:
+					contexto.drawImage(document.getElementById("d4"), 0, 0, canvas.width, canvas.height);
+					break;
+				case 5:
+					contexto.drawImage(document.getElementById("d5"), 0, 0, canvas.width, canvas.height);
+					break;
+				case 6:
+					contexto.drawImage(document.getElementById("d6"), 0, 0, canvas.width, canvas.height);
+					break;
+			}
+			requestAnimationFrame(desenhar);
+		}
+
+		var imagens = ["image/d1.png", "image/d2.png", "image/d3.png", "image/d4.png", "image/d5.png", "image/d6.png"];
+		var carregadas = 0;
+		for (var i = 0; i < imagens.length; i++) {
+			var imagem = new Image();
+			imagem.src = imagens[i];
+			imagem.onload = function() {
+				carregadas++;
+				if (carregadas == imagens.length) {
+					desenhar();
+				}
+			}
+			document.body.appendChild(imagem);
+			imagem.style.display = "none";
+			imagem.id = "d" + (i + 1);
+		}
+	</script>
+</body>
+</html>

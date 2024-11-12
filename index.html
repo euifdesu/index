@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <script>
+	
+const W = window.innerWidth  || document.documentElement.clientWidth  || document.body.clientWidth;
+const H = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+const ROOT = document.body;
+  
+const ATK_SHIP 			= 0;
+const ATK_HELICOPTER 		= 1;
+const ATK_FIRE 			= 2;
+  
+const BORDER_2 		= 0;
+const BORDER_4 		= 1;
+const BORDER_6 		= 2;
+const BORDER_8 		= 3;
+  
+const SCALE_PIXEL 		= 0;
+const SCALE_PERCENT 	= 1;
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'a' || event.key === 'A') {
+			
+            }
+        });
+		
+		function open_site_on_click_new_page(element, url) {
+  // Adicione um ouvinte de evento de clique ao elemento
+  element.element.addEventListener('click', function() {
+    // Abra a URL no novo guia ou janela
+    window.open(url, '_blank');
+  });
+}
+
+function open_site_on_click_same_page(element, url) {
+  // Adicione um ouvinte de evento de clique ao elemento
+  element.element.addEventListener('click', function() {
+    // Redirecione para o novo URL na mesma aba
+    window.location.href = url;
+  });
+}
+
+		
+		function log_xtwh(element) {
+    console.log("Left:", element.element.style.left);
+    console.log("Top:", element.element.style.top);
+    console.log("Width:", element.element.style.width);
+    console.log("Height:", element.element.style.height);
+} 
+		
+		function get_x(element){return parseFloat(element.element.style.left);}
+		function get_y(element){return parseFloat(element.element.style.top);}
+		function get_w(element){return parseFloat(element.element.style.width);}
+		function get_h(element){return parseFloat(element.element.style.height);}
+		
+		function set_x(element, x) {element.element.style.left = x + 'px';}
+		function set_y(element, y) {element.element.style.top = y + 'px';}
+		function set_w(element, w) {element.element.style.width = w + 'px';}
+		function set_h(element, h) {element.element.style.height = h + 'px';}
+		
+		function set_x_to_right_pan(me, to, pan)
+		{
+			set_xywh_cpy( me, to );
+			set_x( me, get_x( me) + get_w( me ) + pan);
+		}
+		
+		function set_xywh(element, x,y,w,h)
+		{
+			element.element.style.left           = x + 'px';
+			element.element.style.top            = y + 'px';
+			element.element.style.width 	      = w + 'px';
+			element.element.style.height         = h + 'px';
+		}
+		
+		function set_xy(element, x,y)
+		{
+			element.element.style.left           = x + 'px';
+			element.element.style.top            = y + 'px';
+		}
+		
+		function set_xywh_cpy(me, to)
+		{
+			me.element.style.left   = to.element.style.left;
+			me.element.style.top    = to.element.style.top;
+			me.element.style.width  = to.element.style.width;
+			me.element.style.height = to.element.style.height;
+		}
+		
+		
+		
+		function set_movible_by_mouse(element) {
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  element.element.style.cursor = 'grab';
+
+  element.element.addEventListener('mousedown', mouseDownHandler);
+  element.element.addEventListener('mouseup', mouseUpHandler);
+
+  function mouseDownHandler(e) {
+    isDragging = true;
+    offsetX = e.clientX - element.element.getBoundingClientRect().left;
+    offsetY = e.clientY - element.element.getBoundingClientRect().top;
+    element.element.style.cursor = 'grabbing';
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+  }
+
+  function mouseMoveHandler(e) {
+    if (isDragging) {
+      const x = e.clientX - offsetX;
+      const y = e.clientY - offsetY;
+      element.element.style.left = x + 'px';
+      element.element.style.top = y + 'px';
+    }
+  }
+
+  function mouseUpHandler() {
+    isDragging = false;
+    element.element.style.cursor = 'grab';
+
+    document.removeEventListener('mousemove', mouseMoveHandler);
+  }
+}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+class UI_text {
+  constructor(text,color,font_size_16) {
+    this.element                       = document.createElement('p');
+    this.element.textContent           = text;
+    this.element.style.position        = 'absolute';
+    this.element.style.left            = '0px';
+    this.element.style.top             = '0px';
+    this.element.style.fontSize        = font_size_16 + 'px';
+    this.element.style.color           = color;
+	ROOT.appendChild(this.element);
+  }
+}
+
+class UI_frame {
+  constructor(color) {
+  this.element                      = document.createElement('div');
+	this.element.style.position       = 'absolute';
+	this.element.style.left           = '100px';
+	this.element.style.top            = '100px';
+	this.element.style.width          = '100px';
+	this.element.style.height         = '100px';
+	this.element.style.border         = '2px solid '+ color;
+	ROOT.appendChild(this.element);
+  }
+}
+
+class UI_rect {
+  constructor(color) {
+  this.element                           = document.createElement('div');
+	this.element.style.position            = 'absolute';
+	this.element.style.backgroundColor     = color;
+	ROOT.appendChild(this.element);
+  }
+}
+
+class UI_image {
+  constructor(src) {
+    this.element 							= document.createElement('img');
+    this.element.src 						= src;
+    this.element.style.position 			= 'absolute';
+    this.element.style.left 				= '100px';
+    this.element.style.top 					= '100px';
+    this.element.style.width 				= '100px';
+    this.element.style.height 				= '100px';
+	ROOT.appendChild(this.element);
+  }
+}
+
+class UI_circularImage {
+  constructor(src) {
+    this.element = document.createElement('img');
+    this.element.src = src;
+    this.element.style.position = 'absolute';
+    this.element.style.left = '100px';
+    this.element.style.top = '100px';
+    this.element.style.width = '100px';
+    this.element.style.height = '100px';
+    this.element.style.borderRadius = '50%'; // Define o raio para fazer a imagem circular
+    this.element.style.clipPath = 'circle(50% at 50% 50%)'; // Define uma máscara de corte circular (opcional)
+    ROOT.appendChild(this.element);
+  }
+}
+
+class UI_roundedImage {
+  constructor(src) {
+    this.element = document.createElement('img');
+    this.element.src = src;
+    this.element.style.position = 'absolute';
+    this.element.style.left = '100px';
+    this.element.style.top = '100px';
+    this.element.style.width = '100px';
+    this.element.style.height = '100px';
+    this.element.style.borderRadius = '10px'; // Define o raio para fazer as quatro quinas arredondadas
+    ROOT.appendChild(this.element);
+  }
+}
+
+class UI_video {
+  constructor(src) {
+    this.element = document.createElement('video');
+    this.element.src = src;
+    this.element.style.position = 'absolute';
+    this.element.style.left = '100px';
+    this.element.style.top = '100px';
+    this.element.style.width = '320px';
+    this.element.style.height = '240px';
+    this.element.controls = true; // Adicione controles de reprodução (play, pause, etc.)
+    ROOT.appendChild(this.element);
+  }
+}
+
+class UI_div {
+  constructor() {
+    this.element                      = document.createElement('div');
+  	this.element.style.position       = 'absolute';
+    ROOT.appendChild(this.element);
+  }
+}
+
+class UI_book {
+  constructor(src) {
+    this.element = document.createElement('iframe');
+    this.element.style.position = 'absolute';
+    this.element.src = src;
+    this.element.setAttribute('allowfullscreen', '');
+    ROOT.appendChild(this.element);
+  }
+}
+
+class UI_backgroundImage {
+  constructor(src) {
+    // Crie um elemento div para representar o contêiner do fundo.
+    this.element = document.createElement('div');
+    this.element.style.position = 'fixed'; // Fixa a posição do contêiner
+    this.element.style.top = '0';
+    this.element.style.left = '0';
+    this.element.style.width = '100%';
+    this.element.style.height = '100%';
+    this.element.style.backgroundImage = `url(${src})`;
+    this.element.style.backgroundSize = 'cover'; // Ajuste o tamanho da imagem para cobrir todo o contêiner
+    this.element.style.backgroundPosition = 'center'; // Centralize a imagem no contêiner
+    this.element.style.zIndex = '-1'; // Coloque o contêiner no plano de fundo
+    document.body.appendChild(this.element);
+  }
+}
+
+class Antarctica {
+  constructor(color, x, y, w, h) {
+    this.element 						                = document.createElement('div');
+    this.element.style.position 		        = 'absolute';
+    this.element.style.left 			          = x + 'px';
+    this.element.style.top 				          = y + 'px';
+    this.element.style.width 			          = w + 'px';
+    this.element.style.height 		        	= h + 'px';
+  	this.element.style.border 			        = '2px solid '+ color;
+  	//this.element.style.backgroundColor      = 'rgb(20, 20, 50)';
+    ROOT.appendChild(this.element);
+  }
+  setXYWH( x, y, w, h ) {
+  	this.element.style.left 			= x + 'px';
+    this.element.style.top 				= y + 'px';
+  	this.element.style.width 			= w + 'px';
+    this.element.style.height 		= h + 'px';
+  }
+  
+  make_war( atk, n, border, value, scale)
+	{
+		var actual_x = parseInt( this.element.style.left   );
+		var actual_y = parseInt( this.element.style.top    );
+		var actual_w = parseInt( this.element.style.width  );
+		var actual_h = parseInt( this.element.style.height );
+		
+		var cut = value;
+		
+		// adjust scale
+		if (scale == SCALE_PERCENT)
+		{
+		  // check horizontal or vertical
+		  if (border == BORDER_4 || border == BORDER_6)
+		  {
+		    /*trans.w = 100%
+		     ??   = value*/
+		    cut = value * actual_w / 100;
+		  }
+		  else
+		  {
+		    cut = value * actual_h / 100;
+		  }
+		}
+		
+		// update n trans
+		if (atk == ATK_SHIP || atk == ATK_HELICOPTER)
+		{
+		  if (border == BORDER_2)
+		  {
+		    n.element.style.left = actual_x + "px";
+		    n.element.style.top = actual_y + "px";
+		    n.element.style.width = actual_w + "px";
+		    n.element.style.height = cut + "px";
+		  }
+		  else if (border == BORDER_4)
+		  {
+		    n.element.style.left = actual_x + "px";
+		    n.element.style.top = actual_y + "px";
+		    n.element.style.width = cut + "px";
+		    n.element.style.height = actual_h + "px";
+		  }
+		  else if (border == BORDER_6)
+		  {
+		    n.element.style.left = ( actual_x + actual_w - cut ) + "px";
+		    n.element.style.top = actual_y + "px";
+		    n.element.style.width = cut + "px";
+		    n.element.style.height = actual_h + "px";
+		  }
+		  else if (border == BORDER_8)
+		  {
+		    n.element.style.left = actual_x + "px";
+		    n.element.style.top = ( actual_y + actual_h - cut ) + "px";
+		    n.element.style.width = actual_w + "px";
+		    n.element.style.height = cut + "px";
+		  }
+		}
+    
+		// cut antarctica
+		if (atk == ATK_SHIP || atk == ATK_FIRE)
+		{
+		  if (border == BORDER_2)
+		  {
+		    this.element.style.top = actual_y + cut + 'px';
+		    this.element.style.height = actual_h - cut + 'px';
+		  }
+		  else if (border == BORDER_4)
+		  {
+		    this.element.style.left = ( actual_x + cut ) + 'px';
+		    this.element.style.width = ( actual_w - cut ) + 'px';
+		  }
+		  else if (border == BORDER_6)
+		  {
+		    this.element.style.width = ( actual_w - cut ) + 'px';
+		  }
+		  else if (border == BORDER_8)
+		  {
+		    this.element.style.height = actual_h - cut + 'px';
+		  }
+		}
+		
+	}
+	
+}
+
+// var
+const textoCompleto = `
+       Era uma noite com bastante susuros de pessoas
+conversando em frente a uma grande escola que por
+sua vez tinha um Magazine de livros cituada na 
+entrada e na calçada principal.
+este magazine servia como ponto de ônibus para
+as pessoa que dalí saiam.
+
+Enquanto esperavam o ônibus para voltarem para suas casas, havia também um homem 
+mais velho na calçada, este homem conversava muito comigo,
+e me explicava detalhes daquele lugar e exatamente
+tudo o que acontecia alí durante as noites.
+
+O tempo passou rápido e eu me lembrei que tinha
+esquecido um lápis num banco de cimento dentro da
+grande escola, daí eu acendi um cigarro e fui lá
+buscar, a noite fria e o calor do cigarro me proporcionava
+um tál relaxamento profundo que eu nem me importava
+se eu estivesse atrasado para ir pra casa ou não.
+
+Entrei na grande escola então.......
+tinha um quiosque lá dentro que servia os alunos
+que terminavam aulas e queriam curtir mas a noite.
+
+Um pouco mais distantes do quiosque vi uma garota
+mística vestida de preto, havia muitas pessoas naquele
+lugar, eu sentia como se a garota de preto estivesse do
+meu lado de tão forte a presença, porém ela estava a 100
+metros de distancia de mim, mas é como se o silêncio dela
+estivesse me tocanto por dentro como se quisesse me falar
+algo apenas com sua presença quieta e tranquila, 
+e a cada passo que eu dava me sentia como se estivesse sendo observado nos
+mínimos detalhes.
+
+Dái a primeira gota cai lentamente do céu tocando no
+meu braço, e então minha conciência vai desvanescendo
+aos poucos enquanto ela me observava sem tirar sequer os 
+olhos de mim, minha conciência se apagava,
+até não sobrar mais nada.
+`;
+
+const psiconautaTexto = `
+       Era pra ser apenas uma visita, 
+Eu realmente fui enganado por aquelas pessoas da cidade. 
+por que toda praça fica numa esquina ?
+... ...... .........
+ Estava eu na rua na calçada de casa, quando
+ eu vi aquela moto vindo em minha direção, era
+ um amigo de adolescença, que me convida para ir
+ para uma cidade ha uns 15km e então eu aceitei.
+ quando chegei lá, tinha uma praça numa esquina,
+ com umas 4 pessoas, cada um eu seu lugar.
+ Essas pessoas usavam preto e tinha um estilo de vida
+ diferente da maioria, que no caso também é meu estilo, e entao esse meu amigo
+ estava procurando um outro amigo em comun de nóis dois,
+ e esse amigo em comum surgi naquela praça e eles 
+ começaram a conversar enquanto eu só observava de longe.
+    Daí se passaram alguns minutos e eu fiquei sem paciência
+de ficar mais um minuto ali, e para nao irritar meu amigo
+eu decidir sair daquele lugar sem que ele percebece,
+e este foi o meu pior erro.
+       Andei uns 500 metros e realmente eu estava perdido,
+Eu estava embaixo de uma ponte numa BR em que tinha
+caminho para todos os lado, e isso eu estava andando á pé.
+  Entao eu vi um moço que parecia ser gente-fina (mas só parecia)
+    e lhe perguntei :: - Moço como que faz para chegar na minha cidade tal?.
+    e ele me respondeu :: - Faça o seguinte, tá vendo aquela estrada logo ali ?,
+    siga ela que la terá uma rua mais á fundo, e você vai ver uma surpresa...
+    Eu então segui exatamente o que ele disse, porém depois de tanto andar cheguei
+    a um beco sem saida, e me perguntei :: - este cara mentiu pra min?, mas por 
+    qual motivo ???... Então tive que voltar todo o percurso para perguntar a outra pessoa,
+    mas eu já não acreditaria mais em ninguém, então eu fui mais inteligente, desta vez
+    eu perguntarei para uma criança, já que as crianças tem menos hábito de mentir.
+    E então do mesmo ponto do início vi uma criança pouco gordinha e sem camisa e perguntei
+    se ele sabia para onde fica a minha cidade, e ele me respondeu que não sabe, e eu
+    suspeitei que a criança não saberia mesmo, então eu perguntei se ele sabe onde fica a
+    cidade XY que é uma cidade vizinha, e ele disse :: - essa eu sei. Entao eu disse :: Você pode me 
+    mostra onde ela fica?.e ele responde que sim... E então eu seguia ele enquanto me guiava, mas ele
+    estava andando muito lento e já era quase final de tarde e eu não queria ficar mais nenhum minuto
+    neste lugar chato e pedir para que ele andasse depressa. E então ele me levou para outro beco sem saida,
+    e eu disse :: - putz véi, de novo... 
+       Mas só que desta vez ele curvou num lugar estreido na direita que levava num galpão gigante,
+e entramos lá, e neste galpão havia bem no centro uma torre branca gigante que parecia aquelas
+chaminés de fabricas antigas abandonada. O lugar parecia que já tinha mais de décadas que ninguém
+passava mais por ali.
+   Este galpão era uma espécie de passagem que levava de uma cidade para outra, porém muito escondido.
+No galpão havia 2 negros de 18 anos, um de camisa branca, e outro de camisa vermelha, e tinha uma mulher branca
+de uns 38 anos com camisa Jeans e short curto amarelo, e também tinha 1 homem branco de uns 45 anos.
+   O negro fazia companhia a o outro negro, enquanto a moça fazia companhia para o homem, e eu estava 
+acompanhado de uma criança sem camisa e barriguda. Meu Deu que situacao,
+e então a moça disse :: - venha é por aqui..., e eu subi os degraus da escada de cimento do galpão porém no final da escada tinha
+uma porta de grade de ferro trancada e tinha um leitor de identidade,
+(sim, para sair daquela cidade você teria que se identifivar). E a crianca olhou para baixo, enquanto todos estavam na escada e disse
+para um homem lá embaixo que parecia ser o guardião do local :: - ei cara traz ai o cartão para nóis passar,.
+(sim, todas essas pessoas transitava de cidade para cidade de forma clandestina). daí eu me perguntei,
+:: ?? que droga de cidade é essa em que os moradore não podem nem sair nem entrar na cidade??..
+ E então a Moça disse :: - Eu nao sei porque eles fazem isso, todos os turistas que vem para esta cidade são assaltadas,
+ porque quando passa por um lugar desse de identificação a máquina exposta o lugar de onde a pessoa mora, e os moradores daqui o assaltam..
+ Quando ela falou isso,  o negro de camisa Vermelha tirou a camisa e me olhava tipo com ameaças de que me queria roubar..
+e meu suor frio pairava incontroladamente
+ foi neste exato momento em que....
+Minha conciência foi se desvanescendo até nao sobrar mais nada.
+`;
+
+// new
+//const antarctica = new Antarctica('blue', 0,0,W,H);
+//const book = new UI_book('https://vdocuments.mx/embed/v1/cla-malkavian');
+const back = new UI_backgroundImage('image/background2.jpg');
+const desu = new UI_circularImage('image/little_desu.jpg');
+const wellcome = new UI_text('Bem Vindos !', 'rgb(255,255,255)', W/10);
+const dice = new UI_roundedImage('image/dice.jpg');
+const primitive = new UI_roundedImage('image/primitive.jpg');
+// const nagato = new UI_roundedImage('image/nagato.jpg');
+
+const observadora = new UI_text('[ A observadora ]', 'rgb(255,255,255)', W/10);
+const observadora_text = new UI_text(textoCompleto, 'rgb(255,144,0)', W/20);
+
+const psiconauta = new UI_text('[ O psiconáuta ]', 'rgb(255,255,255)', W/10);
+const psiconauta_text = new UI_text(psiconautaTexto, 'rgb(255,144,0)', W/20);
+
+
+const youtube = new UI_roundedImage('image/youtube.jpg');
+const instagram = new UI_roundedImage('image/instagram.jpg');
+const github = new UI_roundedImage('image/github.jpg');
+const sketchfab = new UI_roundedImage('image/sketchfab.jpg');
+
+// transform
+set_xywh( desu, W/20, W/20,W/3,W/3);
+
+set_xy( wellcome, W/2.5	,-(W/16));
+
+set_xywh( dice, W/2.5, W/7,W/8.15,W/11);
+
+set_xywh( youtube, W/2.5, W/7,W/11,W/11);
+set_y( youtube, get_y( youtube) + get_h( youtube ) + W/200);
+
+set_x_to_right_pan( primitive, dice, W/200);
+//set_x_to_right_pan( nagato, primitive, W/200);
+set_x_to_right_pan( instagram, youtube, W/200);
+set_x_to_right_pan( github, instagram, W/200);
+set_x_to_right_pan( sketchfab, github, W/200);
+
+var title = observadora;
+var text = observadora_text;
+set_xy(title, W/14	,(W/3.5));
+set_xy(text, W/30	, get_y( title ) + ( title.element.offsetHeight * 2) );
+
+title = psiconauta;
+set_xy(title, W/14	,get_y( text ) + ( text.element.offsetHeight ) );
+text = psiconauta_text;
+set_xy(text, W/30	, get_y( title ) + ( title.element.offsetHeight * 2) );
+
+// listeners
+open_site_on_click_same_page( youtube , 'https://www.youtube.com/@Ya_psikhonavt');
+open_site_on_click_same_page( instagram , 'https://www.instagram.com/if_desu');
+open_site_on_click_same_page( github , 'https://github.com/ifdesu');
+open_site_on_click_same_page( sketchfab , 'https://sketchfab.com/bergifdesu');
+
+open_site_on_click_same_page( dice , 'dice.html');
+open_site_on_click_same_page( primitive , 'primitive.html');
+// open_site_on_click_same_page( nagato , 'nagato.html');
+    </script>
+</body>
+</html>

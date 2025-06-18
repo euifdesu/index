@@ -144,7 +144,8 @@ function open_site_on_click_same_page(element, url) {
 class UI_text {
   constructor(text,color,font_size_16) {
     this.element                       = document.createElement('p');
-    this.element.textContent           = text;
+    //this.element.textContent           = text;
+    this.element.innerHTML             = text;
     this.element.style.position        = 'absolute';
     this.element.style.left            = '0px';
     this.element.style.top             = '0px';
@@ -475,6 +476,27 @@ e meu suor frio pairava incontroladamente
  foi neste exato momento em que....
 Minha conciência foi se desvanescendo até nao sobrar mais nada.
 `;
+    
+    const textoPerdidoNoTempo = `
+       Perdido no tempo pensando em você<br>
+    Meus olhos só vêem a escuridão<br>
+    Espero um dia poder entender<br>
+    A luz que clareia seu coração<br>
+    __________( 1 / 5 )<br>
+    <br>
+    A gente só entende o que é o amor<br>
+    Quando alguém nos ensina a amar<br>
+    Nas noites de chuvas que não tem calor<br>
+    Queria um beijo poder te dar<br>
+    __________( 2 / 4 )<br>
+    <br>
+    Estou aqui só, mas eu penso em ti<br>
+    Mas eu não me sinto em solidão<br>
+    É como se você estivesse aqui<br>
+    Guardada dentro do meu coração<br>
+    __________( 3 / 6 )<br>
+    <br>
+`;
 
 // new
 //const antarctica = new Antarctica('blue', 0,0,W,H);
@@ -491,7 +513,6 @@ const observadora_text = new UI_text(textoCompleto, 'rgb(255,144,0)', W/20);
 
 const psiconauta = new UI_text('[ O psiconáuta ]', 'rgb(255,255,255)', W/10);
 const psiconauta_text = new UI_text(psiconautaTexto, 'rgb(255,144,0)', W/20);
-
 
 const youtube = new UI_roundedImage('image/youtube.jpg');
 const instagram = new UI_roundedImage('image/instagram.jpg');
@@ -523,6 +544,15 @@ title = psiconauta;
 set_xy(title, W/14	,get_y( text ) + ( text.element.offsetHeight ) );
 text = psiconauta_text;
 set_xy(text, W/30	, get_y( title ) + ( title.element.offsetHeight * 2) );
+    
+// PERDIDO NO TEMPO TITLE
+const perdido = new UI_text('[ Perdido no tempo ]', 'rgb(255,255,255)', W/10);
+set_xy(perdido, W/14	,get_y( psiconauta_text ) + ( psiconauta_text.element.offsetHeight ) );
+// PERDIDO NO TEMPO CONTENT
+const perdido_text = new UI_text(textoPerdidoNoTempo, 'rgb(255,144,0)', W/20);
+set_xy(perdido_text, W/30	,get_y( perdido ) + ( perdido.element.offsetHeight * 2) );
+
+
 
 // listeners
 open_site_on_click_same_page( youtube , 'https://www.youtube.com/@Ya_psikhonavt');

@@ -3,6 +3,27 @@
 <head>
 </head>
 <body>
+    
+    <script src="sonho/observadora.js"></script>
+    <script src="sonho/psiconauta.js"></script>
+    
+    
+    <script src="ui/UI_backgroundImage.js"></script>
+    <script src="ui/UI_book.js"></script>
+    <script src="ui/UI_circularImage.js"></script>
+    <script src="ui/UI_div.js"></script>
+    <script src="ui/UI_frame.js"></script>
+    <script src="ui/UI_image.js"></script>
+    <script src="ui/UI_rect.js"></script>
+    <script src="ui/UI_roundedImage.js"></script>
+    <script src="ui/UI_text.js"></script>
+    <script src="ui/UI_video.js"></script>
+    
+    <script src="letra/perdido_no_tempo.js"></script>
+    <script src="letra/luz_na_escuridao.js"></script>
+    
+    
+    
     <script>
 	
 const W = window.innerWidth  || document.documentElement.clientWidth  || document.body.clientWidth;
@@ -127,146 +148,6 @@ function open_site_on_click_same_page(element, url) {
   }
 }
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-class UI_text {
-  constructor(text,color,font_size_16) {
-    this.element                       = document.createElement('p');
-    //this.element.textContent           = text;
-    this.element.innerHTML             = text;
-    this.element.style.position        = 'absolute';
-    this.element.style.left            = '0px';
-    this.element.style.top             = '0px';
-    this.element.style.fontSize        = font_size_16 + 'px';
-    this.element.style.color           = color;
-	ROOT.appendChild(this.element);
-  }
-}
-
-class UI_frame {
-  constructor(color) {
-  this.element                      = document.createElement('div');
-	this.element.style.position       = 'absolute';
-	this.element.style.left           = '100px';
-	this.element.style.top            = '100px';
-	this.element.style.width          = '100px';
-	this.element.style.height         = '100px';
-	this.element.style.border         = '2px solid '+ color;
-	ROOT.appendChild(this.element);
-  }
-}
-
-class UI_rect {
-  constructor(color) {
-  this.element                           = document.createElement('div');
-	this.element.style.position            = 'absolute';
-	this.element.style.backgroundColor     = color;
-	ROOT.appendChild(this.element);
-  }
-}
-
-class UI_image {
-  constructor(src) {
-    this.element 							= document.createElement('img');
-    this.element.src 						= src;
-    this.element.style.position 			= 'absolute';
-    this.element.style.left 				= '100px';
-    this.element.style.top 					= '100px';
-    this.element.style.width 				= '100px';
-    this.element.style.height 				= '100px';
-	ROOT.appendChild(this.element);
-  }
-}
-
-class UI_circularImage {
-  constructor(src) {
-    this.element = document.createElement('img');
-    this.element.src = src;
-    this.element.style.position = 'absolute';
-    this.element.style.left = '100px';
-    this.element.style.top = '100px';
-    this.element.style.width = '100px';
-    this.element.style.height = '100px';
-    this.element.style.borderRadius = '50%'; // Define o raio para fazer a imagem circular
-    this.element.style.clipPath = 'circle(50% at 50% 50%)'; // Define uma máscara de corte circular (opcional)
-    ROOT.appendChild(this.element);
-  }
-}
-
-class UI_roundedImage {
-  constructor(src) {
-    this.element = document.createElement('img');
-    this.element.src = src;
-    this.element.style.position = 'absolute';
-    this.element.style.left = '100px';
-    this.element.style.top = '100px';
-    this.element.style.width = '100px';
-    this.element.style.height = '100px';
-    this.element.style.borderRadius = '10px'; // Define o raio para fazer as quatro quinas arredondadas
-    ROOT.appendChild(this.element);
-  }
-}
-
-class UI_video {
-  constructor(src) {
-    this.element = document.createElement('video');
-    this.element.src = src;
-    this.element.style.position = 'absolute';
-    this.element.style.left = '100px';
-    this.element.style.top = '100px';
-    this.element.style.width = '320px';
-    this.element.style.height = '240px';
-    this.element.controls = true; // Adicione controles de reprodução (play, pause, etc.)
-    ROOT.appendChild(this.element);
-  }
-}
-
-class UI_div {
-  constructor() {
-    this.element                      = document.createElement('div');
-  	this.element.style.position       = 'absolute';
-    ROOT.appendChild(this.element);
-  }
-}
-
-class UI_book {
-  constructor(src) {
-    this.element = document.createElement('iframe');
-    this.element.style.position = 'absolute';
-    this.element.src = src;
-    this.element.setAttribute('allowfullscreen', '');
-    ROOT.appendChild(this.element);
-  }
-}
-
-class UI_backgroundImage {
-  constructor(src) {
-    // Crie um elemento div para representar o contêiner do fundo.
-    this.element = document.createElement('div');
-    this.element.style.position = 'fixed'; // Fixa a posição do contêiner
-    this.element.style.top = '0';
-    this.element.style.left = '0';
-    this.element.style.width = '100%';
-    this.element.style.height = '100%';
-    this.element.style.backgroundImage = `url(${src})`;
-    this.element.style.backgroundSize = 'cover'; // Ajuste o tamanho da imagem para cobrir todo o contêiner
-    this.element.style.backgroundPosition = 'center'; // Centralize a imagem no contêiner
-    this.element.style.zIndex = '-1'; // Coloque o contêiner no plano de fundo
-    document.body.appendChild(this.element);
-  }
-}
 
 class Antarctica {
   constructor(color, x, y, w, h) {
@@ -372,132 +253,18 @@ class Antarctica {
 	
 }
 
-// var
-const textoCompleto = `
-       Era uma noite com bastante susuros de pessoas
-conversando em frente a uma grande escola que por
-sua vez tinha um Magazine de livros cituada na 
-entrada e na calçada principal.
-este magazine servia como ponto de ônibus para
-as pessoa que dalí saiam.
+function add_next_label_and_text(last, _label, data)
+    {
+        // LABEL
+        const label = new UI_text(_label, 'rgb(255,255,255)', W/10);
+        set_xy(label, W/14	,get_y( last ) + ( last.element.offsetHeight ) );
+        // TEXT
+        const text = new UI_text(data, 'rgb(255,144,0)', W/20);
+        set_xy(text, W/30	,get_y( label ) + ( label.element.offsetHeight * 2) );
 
-Enquanto esperavam o ônibus para voltarem para suas casas, havia também um homem 
-mais velho na calçada, este homem conversava muito comigo,
-e me explicava detalhes daquele lugar e exatamente
-tudo o que acontecia alí durante as noites.
-
-O tempo passou rápido e eu me lembrei que tinha
-esquecido um lápis num banco de cimento dentro da
-grande escola, daí eu acendi um cigarro e fui lá
-buscar, a noite fria e o calor do cigarro me proporcionava
-um tál relaxamento profundo que eu nem me importava
-se eu estivesse atrasado para ir pra casa ou não.
-
-Entrei na grande escola então.......
-tinha um quiosque lá dentro que servia os alunos
-que terminavam aulas e queriam curtir mas a noite.
-
-Um pouco mais distantes do quiosque vi uma garota
-mística vestida de preto, havia muitas pessoas naquele
-lugar, eu sentia como se a garota de preto estivesse do
-meu lado de tão forte a presença, porém ela estava a 100
-metros de distancia de mim, mas é como se o silêncio dela
-estivesse me tocanto por dentro como se quisesse me falar
-algo apenas com sua presença quieta e tranquila, 
-e a cada passo que eu dava me sentia como se estivesse sendo observado nos
-mínimos detalhes.
-
-Dái a primeira gota cai lentamente do céu tocando no
-meu braço, e então minha conciência vai desvanescendo
-aos poucos enquanto ela me observava sem tirar sequer os 
-olhos de mim, minha conciência se apagava,
-até não sobrar mais nada.
-`;
-
-const psiconautaTexto = `
-       Era pra ser apenas uma visita, 
-Eu realmente fui enganado por aquelas pessoas da cidade. 
-por que toda praça fica numa esquina ?
-... ...... .........
- Estava eu na rua na calçada de casa, quando
- eu vi aquela moto vindo em minha direção, era
- um amigo de adolescença, que me convida para ir
- para uma cidade ha uns 15km e então eu aceitei.
- quando chegei lá, tinha uma praça numa esquina,
- com umas 4 pessoas, cada um eu seu lugar.
- Essas pessoas usavam preto e tinha um estilo de vida
- diferente da maioria, que no caso também é meu estilo, e entao esse meu amigo
- estava procurando um outro amigo em comun de nóis dois,
- e esse amigo em comum surgi naquela praça e eles 
- começaram a conversar enquanto eu só observava de longe.
-    Daí se passaram alguns minutos e eu fiquei sem paciência
-de ficar mais um minuto ali, e para nao irritar meu amigo
-eu decidir sair daquele lugar sem que ele percebece,
-e este foi o meu pior erro.
-       Andei uns 500 metros e realmente eu estava perdido,
-Eu estava embaixo de uma ponte numa BR em que tinha
-caminho para todos os lado, e isso eu estava andando á pé.
-  Entao eu vi um moço que parecia ser gente-fina (mas só parecia)
-    e lhe perguntei :: - Moço como que faz para chegar na minha cidade tal?.
-    e ele me respondeu :: - Faça o seguinte, tá vendo aquela estrada logo ali ?,
-    siga ela que la terá uma rua mais á fundo, e você vai ver uma surpresa...
-    Eu então segui exatamente o que ele disse, porém depois de tanto andar cheguei
-    a um beco sem saida, e me perguntei :: - este cara mentiu pra min?, mas por 
-    qual motivo ???... Então tive que voltar todo o percurso para perguntar a outra pessoa,
-    mas eu já não acreditaria mais em ninguém, então eu fui mais inteligente, desta vez
-    eu perguntarei para uma criança, já que as crianças tem menos hábito de mentir.
-    E então do mesmo ponto do início vi uma criança pouco gordinha e sem camisa e perguntei
-    se ele sabia para onde fica a minha cidade, e ele me respondeu que não sabe, e eu
-    suspeitei que a criança não saberia mesmo, então eu perguntei se ele sabe onde fica a
-    cidade XY que é uma cidade vizinha, e ele disse :: - essa eu sei. Entao eu disse :: Você pode me 
-    mostra onde ela fica?.e ele responde que sim... E então eu seguia ele enquanto me guiava, mas ele
-    estava andando muito lento e já era quase final de tarde e eu não queria ficar mais nenhum minuto
-    neste lugar chato e pedir para que ele andasse depressa. E então ele me levou para outro beco sem saida,
-    e eu disse :: - putz véi, de novo... 
-       Mas só que desta vez ele curvou num lugar estreido na direita que levava num galpão gigante,
-e entramos lá, e neste galpão havia bem no centro uma torre branca gigante que parecia aquelas
-chaminés de fabricas antigas abandonada. O lugar parecia que já tinha mais de décadas que ninguém
-passava mais por ali.
-   Este galpão era uma espécie de passagem que levava de uma cidade para outra, porém muito escondido.
-No galpão havia 2 negros de 18 anos, um de camisa branca, e outro de camisa vermelha, e tinha uma mulher branca
-de uns 38 anos com camisa Jeans e short curto amarelo, e também tinha 1 homem branco de uns 45 anos.
-   O negro fazia companhia a o outro negro, enquanto a moça fazia companhia para o homem, e eu estava 
-acompanhado de uma criança sem camisa e barriguda. Meu Deu que situacao,
-e então a moça disse :: - venha é por aqui..., e eu subi os degraus da escada de cimento do galpão porém no final da escada tinha
-uma porta de grade de ferro trancada e tinha um leitor de identidade,
-(sim, para sair daquela cidade você teria que se identifivar). E a crianca olhou para baixo, enquanto todos estavam na escada e disse
-para um homem lá embaixo que parecia ser o guardião do local :: - ei cara traz ai o cartão para nóis passar,.
-(sim, todas essas pessoas transitava de cidade para cidade de forma clandestina). daí eu me perguntei,
-:: ?? que droga de cidade é essa em que os moradore não podem nem sair nem entrar na cidade??..
- E então a Moça disse :: - Eu nao sei porque eles fazem isso, todos os turistas que vem para esta cidade são assaltadas,
- porque quando passa por um lugar desse de identificação a máquina exposta o lugar de onde a pessoa mora, e os moradores daqui o assaltam..
- Quando ela falou isso,  o negro de camisa Vermelha tirou a camisa e me olhava tipo com ameaças de que me queria roubar..
-e meu suor frio pairava incontroladamente
- foi neste exato momento em que....
-Minha conciência foi se desvanescendo até nao sobrar mais nada.
-`;
+        return text;
+    }
     
-    const textoPerdidoNoTempo = `
-       Perdido no tempo pensando em você<br>
-    Meus olhos só vêem a escuridão<br>
-    Espero um dia poder entender<br>
-    A luz que clareia seu coração<br>
-    __________( 1 / 5 )<br>
-    <br>
-    A gente só entende o que é o amor<br>
-    Quando alguém nos ensina a amar<br>
-    Nas noites de chuvas que não tem calor<br>
-    Queria um beijo poder te dar<br>
-    __________( 2 / 4 )<br>
-    <br>
-    Estou aqui só, mas eu penso em ti<br>
-    Mas eu não me sinto em solidão<br>
-    É como se você estivesse aqui<br>
-    Guardada dentro do meu coração<br>
-    __________( 3 / 6 )<br>
-    <br>
-`;
-
 // new
 //const antarctica = new Antarctica('blue', 0,0,W,H);
 //const book = new UI_book('https://vdocuments.mx/embed/v1/cla-malkavian');
@@ -546,12 +313,13 @@ text = psiconauta_text;
 set_xy(text, W/30	, get_y( title ) + ( title.element.offsetHeight * 2) );
     
 // PERDIDO NO TEMPO TITLE
-const perdido = new UI_text('[ Perdido no tempo ]', 'rgb(255,255,255)', W/10);
-set_xy(perdido, W/14	,get_y( psiconauta_text ) + ( psiconauta_text.element.offsetHeight ) );
-// PERDIDO NO TEMPO CONTENT
+const perdido_label = new UI_text('[ Perdido no tempo ]', 'rgb(255,255,255)', W/10);
+set_xy(perdido_label, W/14	,get_y( psiconauta_text ) + ( psiconauta_text.element.offsetHeight ) );
 const perdido_text = new UI_text(textoPerdidoNoTempo, 'rgb(255,144,0)', W/20);
-set_xy(perdido_text, W/30	,get_y( perdido ) + ( perdido.element.offsetHeight * 2) );
+set_xy(perdido_text, W/30	,get_y( perdido_label ) + ( perdido_label.element.offsetHeight * 2) );
 
+// LUZ NA ESCURIDAO
+const ui_luz_na_escuridao = add_next_label_and_text(perdido_text,'[ Luz Na Escuridão ]', textoLuzNaEscuridao);
 
 
 // listeners
